@@ -108,7 +108,29 @@ const Game = (() => {
           unlock.style.display = "none";
         });
       } else if (Checkdraw()) {
-        alert("draw");
+        message.innerHTML = `<h1> Hey! , It's Draw.. </h1>`;
+        unlock.innerHTML = `<div> <h2> Do you want to continue...?</h2> <button class="start yes">Yes</button> <button class="start no">NO</button>`;
+        boardContent.style.display = "none";
+        unlock.style.display = "block";
+        for (let i = 0; i < 9; i++) {
+          const cell = document.getElementById(`${i}`);
+          console.log(cell);
+          cell.innerText = "";
+          cell.classList.remove("loss");
+          GameBoard.updateBoard(i, "");
+        }
+
+        const yes = document.querySelector(".yes");
+        const no = document.querySelector(".no");
+        no.addEventListener("click", () => {
+          location.reload();
+        });
+        yes.addEventListener("click", () => {
+          message.innerHTML = "";
+          [current, other] = players;
+          boardContent.style.display = "grid";
+          unlock.style.display = "none";
+        });
       }
       swapPlayers(other, current);
     }
