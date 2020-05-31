@@ -2,10 +2,10 @@
  * Player Factory function to return player object
  */
 
-const Player = (name, symbol) => {
+const Player = (name, symbol, dis) => {
   const points = 0;
 
-  return { name, symbol, points };
+  return { name, symbol, points, dis };
 };
 
 /**
@@ -83,7 +83,7 @@ const Game = (() => {
       if (Checkwin()) {
         console.log(Checkwin());
         current.points += 1;
-        point.innerText = current.points;
+        current.dis.innerText = current.points;
         message.innerHTML = `<h1> Hey! ,${current.name}  you Won. </h1>`;
         unlock.innerHTML = `<div> <h2> Do you want to continue...?</h2> <button class="start yes">Yes</button> <button class="start no">NO</button>`;
         boardContent.style.display = "none";
@@ -130,7 +130,8 @@ const player_details = document.querySelector(".player-details");
 const p1 = document.querySelector(".p1-name");
 const p2 = document.querySelector(".p2-name");
 const message = document.querySelector(".won-message");
-const point = document.querySelector(".points");
+const p1point = document.querySelector(".p1-points");
+const p2point = document.querySelector(".p2-points");
 const first_player = document.querySelector(".first-player");
 const second_player = document.querySelector(".second-player");
 start.addEventListener("click", () => {
@@ -143,8 +144,8 @@ const startGame = () => {
   if (player1_name.value && player2_name.value) {
     boardContent.style.display = "grid";
     unlock.style.display = "none";
-    const player1 = Player(player1_name.value, "X");
-    const player2 = Player(player2_name.value, "O");
+    const player1 = Player(player1_name.value, "X", p1point);
+    const player2 = Player(player2_name.value, "O", p2point);
     p1.innerHTML = player1.name;
     p2.innerHTML = player2.name;
     Game.setPlayers(player1, player2);
